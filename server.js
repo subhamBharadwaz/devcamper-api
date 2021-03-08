@@ -22,6 +22,7 @@ if (process.env.NODE_ENV === 'development') {
 
 // Mount Routes
 app.use('/api/v1/bootcamps', require('./routes/bootcamps'));
+app.use('/api/v1/courses', require('./routes/courses'));
 
 app.use(errorHandler);
 
