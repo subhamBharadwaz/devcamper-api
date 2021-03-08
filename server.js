@@ -3,6 +3,8 @@ const dotEnv = require('dotenv');
 const morgan = require('morgan');
 const colors = require('colors');
 const dbConnection = require('./config/db');
+const path = require('path');
+const fileUpload = require('express-fileupload');
 const errorHandler = require('./middleware/error');
 // Load env vars
 dotEnv.config({ path: './config/config.env' });
@@ -19,6 +21,11 @@ app.use(express.json());
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
+// File Uploading
+app.use(fileUpload());
+
+// Set static folder
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Mount Routes
 app.use('/api/v1/bootcamps', require('./routes/bootcamps'));
