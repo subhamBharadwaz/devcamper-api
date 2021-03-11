@@ -7,6 +7,8 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const fileUpload = require('express-fileupload');
 const mongoSanitize = require('express-mongo-sanitize');
+const helmet = require('helmet');
+const xss = require('xss-clean');
 const errorHandler = require('./middleware/error');
 
 // Load env vars
@@ -29,6 +31,12 @@ if (process.env.NODE_ENV === 'development') {
 }
 // File Uploading
 app.use(fileUpload());
+
+// Set security headers
+app.use(helmet());
+
+// Prevent XSS attacks
+app.use(xss());
 
 // Sanitize data
 app.use(mongoSanitize());
